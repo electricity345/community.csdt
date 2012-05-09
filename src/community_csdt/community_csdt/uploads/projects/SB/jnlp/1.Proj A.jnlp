@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--<jnlp href="app.jnlp">-->
-<jnlp href="http://community.csdt.rpi.edu/uploads/projects/SB/jnlp/5.SB%20Test.jnlp" codebase="http://www.ccd.rpi.edu/eglash/csdt/pcsdt/SB">
+<jnlp href="http://192.168.1.101/uploads/projects/SB/jnlp/1.Proj%20A.jnlp" codebase="http://www.ccd.rpi.edu/eglash/csdt/pcsdt/SB">
 <information>
 <title>PCSDT app via Web Start</title>
 <vendor>RPI</vendor>
@@ -29,8 +29,8 @@
 </resources>
 
   <applet-desc name="pCSDT Applet" main-class="SB.SBGui" width="1000" height="700">
-    <param name="SingleDemoXmlUrl" value="http://community.csdt.rpi.edu/uploads/projects/SB/xml/5.SB Test.xml"/>
-    <param name="DemoUrls" value="Default, http://community.csdt.rpi.edu/uploads/projects/SB/xml/5.SB Test.xml"/>
+    <param name="SingleDemoXmlUrl" value="http://192.168.1.101/uploads/projects/SB/xml/1.Proj A.xml"/>
+    <param name="DemoUrls" value="Default, http://192.168.1.101/uploads/projects/SB/xml/1.Proj A.xml"/>
   </applet-desc>
 
 </jnlp>
