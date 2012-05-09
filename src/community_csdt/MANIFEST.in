@@ -1,0 +1,2 @@
+include *.txt *.ini *.cfg *.rst
+recursive-include community_csdt *.ico *.png *.css *.gif *.jpg *.pt *.txt *.mak *.mako *.js *.html *.xml *.log *.jar *.jnlp *.1 *.2 *.3 *.4 *.5

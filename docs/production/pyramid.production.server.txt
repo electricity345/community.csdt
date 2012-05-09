@@ -1,0 +1,257 @@
+Installing Pyramid on Red Hat Enterprise Linux 6 or Fedora 14 
+Running a Pyramid Application under mod_wsgi
+
+Note: Instructions won't work for deploying a Pyramid application on a Windows system using mod_wsgi.
+
+** Initial Setup - For Server (Creating virtualenv) [SHOULD ALREADY BE DONE] **
+1) Install Apache 2.X or greater
+
+2) Install Python 2.7 or greater
+
+3) Install the following listed packages below:
+  (Fedora)
+  # yum install mod_wsgi 
+  # yum install httpd
+  # yum install python-crypto
+  # yum install python-devel
+  # yum install python-virtualenv
+  # yum install mysql mysql-server
+  # yum install mysql-devel
+  # yum install MySQL-python
+  
+  (Ubuntu)
+  $ sudo apt-get install python-crypto
+  $ sudo apt-get install python-dev
+  $ sudo apt-get install libapache2-mod-wsgi
+  $ sudo apt-get install mysql-server
+  $ sudo apt-get install mysql-client libmysqlclient-dev
+  $ sudo apt-get install python-mysqldb
+  $ sudo apt-get install mysql-python
+  $ sudo apt-get install postfix
+
+4) Create a virtualenv which we'll use to install our application
+  [Template] $ virtualenv --no-site-packages APPLICATION_NAME
+
+  [Ex]
+  $ cd [wherever you downloaded the community_csdt tree]
+  $ virtualenv --no-site-packages csdt-env
+
+5) Modules to install to our newly created virtualenv
+  Installing Modules into Python Virtual Environment
+  [Templage] $ <path to virtualenv>/bin/easy_install MODULE
+
+  ** Install Pyramid into virtualenv **
+  [Ex] # bin/easy_install pyramid
+
+6) Install ezPyCrypto library manually (Pycrypto 2.3) - since can't easy_install 2.4 to Ubuntu machines
+   1) Download tar.gz from "http://pypi.python.org/pypi/pycrypto/2.3"
+
+   2) Untar file and move it to "<path to virtualenv>/bin"
+
+   3) Have to change the ezPyCrypto.py file
+    - Remove all mentions of IDEA and RC5 from the file
+    - Reason: Those 2 libraries are copyrighted
+
+   4) bin/python setup.py install
+    - ezPyCrypto folder
+
+** Verify community_csdt source tree from repositiory 
+6) Make Mako Templates the default template rendered [SHOULD BE DONE] 
+  Under the devleopment.ini file 
+  Place this under the [app:projectName] area:
+  mako.directories=projectName:folderWhereYourTemplatesAre
+
+  [Ex]
+  mako.directories = community_csdt:templates
+  mako.strict_undefined = false 
+
+7) Changes in setup.py file [SHOULD BE DONE]
+  By changing the requires portion in setup.py, everytime you re-initialize a new egg, all of the listed libraries will be re-installed
+
+  Replace the old requires with this:
+  requires = [
+    'pyramid',
+    'pyramid_debugtoolbar',
+    'waitress',
+    'pyramid_beaker',
+    'pycrypto==2.3',
+    'mysql-python',
+    'beautifulsoup',
+    'recaptcha-client',
+    'tinyurl',
+    'transaction',
+    'repoze.tm2>=1.0b1', # default_commit_veto
+    'WebError'
+    ]
+
+  pycrypto==2.3 since can't easy_install 2.4 to Ubuntu machines
+
+8) Change the MANIFEST.ini file [SHOULD BE DONE]
+  MANIFEST.ini looks for file extensions in your source directory and copies them to create a new egg. If your file extension is not mentioned, 
+  then that file extension will not be found in the egg.   
+
+  In the "recursive-include" section add:
+  *.log *.jar *.jnlp *.1 *.2 *.3 *.4 *.5
+
+** Local Testing
+9) Local Testing
+  [Template] 
+  $ cd [wherever you downloaded the community_csdt tree]/src/community_csdt
+  $ <path to virtualenv>/bin/pserve development.ini --reload
+
+  If you are just doing local testing, this is all that you would ever need
+
+
+** Setup - For Production Server
+10) Follow steps 1-9 shown above
+
+11) Change the production.ini file
+  Make sure the production.ini file has all of the same variables as in the development.ini file
+
+12) Create a pyramid.wsgi file [SHOULD BE DONE]
+  File should be located in your virtualenv directory
+  Must have permissions 775
+
+[Template]
+from pyramid.paster import get_app
+application = get_app(
+	'<path to virtualenv>/<name of application>/production.ini', 'main') 
+
+[Ex]
+  File located in csdt-env
+
+from pyramid.paster import get_app
+application = get_app(
+	'/var/www/modwsgi/csdt-env/community_csdt/production.ini', 'main')
+
+13) Setting up modwsgi [SHOULD BE DONE]
+  Create a wsgi.conf file as shown:
+    /etc/httpd/conf.d/wsgi.conf (fedora) 
+    /etc/apache2/conf.d/wsgi.conf (ubuntu)
+
+[Template]
+# Provided by RHEL
+LoadModule wsgi_module modules/mod_wsgi.so
+# Required for RHEL httpd sockets
+WSGISocketPrefix /var/run/wsgi
+
+WSGIApplicationGroup %{GLOBAL}
+WSGIPassAuthorization On
+WSGIDaemonProcess pyramid user=CHANGE_01 group=CHANGE_02 processes=CHANGE_03 \
+   threads=CHANGE_04 \
+   python-path=CHANGE_05
+WSGIScriptAlias CHANGE_06 CHANGE_07
+
+<Directory CHANGE_08>
+  WSGIProcessGroup pyramid
+  Order allow,deny
+  Allow from all
+</Directory>
+
+Places to Change:
+CHANGE_01 - Name of user (Unix)
+CHANGE_02 - Name of group (Unix)
+CHANGE_03 - Number of processes to be specified
+CHANGE_04 - Number of threads to be specified
+CHANGE_05 - Python path that your virtualenv refers to
+CHANGE_06 - Namespace for document root
+CHANGE_07 - Path to wsgi file created in step 13
+CHANGE_08 - Path to virtualenv
+
+[Ex]
+# Provided by RHEL
+LoadModule wsgi_module modules/mod_wsgi.so
+# Required for RHEL httpd sockets
+WSGISocketPrefix /var/run/wsgi
+
+WSGIApplicationGroup %{GLOBAL}
+WSGIPassAuthorization On
+WSGIDaemonProcess pyramid user=csdt group=csdt processes=1 \
+   threads=20 \
+   python-path=/var/www/modwsgi/csdt-env/lib/python2.7/site-packages
+WSGIScriptAlias / var/www/modwsgi/csdt-env/pyramid.wsgi
+
+<Directory /var/www/modwsgi/csdt-env>
+  WSGIProcessGroup pyramid
+  Order allow,deny
+  Allow from all
+</Directory>
+
+** Updating Production Server Code
+12) Updating the code on a server (Substitute your existing Pyramid application as necessary)
+  If you are doing development on another machine, first copy the entire directory containing the setup.py
+  [Ex] if setup.py is located in /community_csdt, copy the entire /community_csdt directory
+  
+  The copied directory should be placed in the location of your python virtual env
+  [Template] # cp -r FILE DESTINATION
+  # cp -r community_csdt /home/community/modwsgi/csdt-env
+
+  ** Be sure to remove your old folder from your virtualenv **
+  In the case of the example above, remember to remove the community_csdt folder from /home/community/modwsgi/csdt-env
+
+** Code changes
+13) Code Changes
+  13.1) Uncomment Email
+    register_public.py in /community_csdt/src/models/register
+    recover.py in /community_csdt/src/models/recover
+
+    Specific for Staging Server (shippb)
+      1) Uncomment the sending of mail
+      2) Uncomment the tinyurl
+
+    Specific for Production Server (HASS)
+      1) msg["From"] = "hass-donotreply@rpi.edu"
+      2) mail_server = smtplib.SMTP('mail.rpi.edu')
+      3) mail_server.ehlo('www5.hass.rpi.edu')
+         #mail_server.starttls()
+         #mail_server.ehlo()
+
+  13.2) grep -ri "MySQLdb" * [community_csdt/src] - change the MySQLdb.connect() - ONLY PRODUCTION SERVER
+    - Ask for password file from professor
+    - host to: ...
+    - passwd to: ...
+    
+  13.3) all files in projects (jnlp) [community_csdt/uploads] 
+    Change url 
+      shippb.stu.rpi.edu (testing server)
+      community.csdt.rpi.edu (production server)
+
+      - jnlp href - if there are spaces, we have to escape it with a %20 
+      - DefaultScriptUrl
+      - DemoUrls
+ 
+  13.4) pyramid.wsgi
+    - /home/patrick/modwsgi/csdt-env/community_csdt/production.ini (testing server)
+    - /home/community/modwsgi/csdt-env/community_csdt/production.ini (production server)
+
+  13.5) grep -ri "http://www.google.com/" * [community_csdt/templates] - change the public key after "k=" - ONLY PRODUCTION SERVER
+    - Ask for password file from professor
+    - create.class.mako - 2 places
+    - public.registration.part.1.mako - 2 places
+    - public.registration.part.2.mako - 2 places
+    - recover.user.password.mako - 2 places
+    - student.registration.mako - 2 places
+
+  13.6) grep -ri "recaptcha_private_key" * [community_csdt/src] - change the private key value - ONLY PRODUCTION SERVER
+    - Ask for password file from professor
+    - views/recover_view.py - 1 place
+    - views/register_view.py - 4 places
+    
+14) Creating an egg (Install your Pyramid application)
+  [community/csdt]
+  $ ../bin/python setup.py install
+
+** Apache Server
+15) Restart Apache Server
+  $ sudo service apache2 restart [Ubuntu]
+
+16) Apache file locations
+  - Apache config files
+      - $ /etc/apache2 [Unbuntu]
+  - Apache log files
+      - $ sudo vi /var/log/apache2/error.log [Ubuntu]
+  - Apache libs
+      - $ /usr/lib/apache2 [Ubuntu]
+  - Other files can be in /usr/share/apache, /var/lib/apache2 [Ubuntu]
+
+

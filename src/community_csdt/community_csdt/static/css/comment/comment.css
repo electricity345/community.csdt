@@ -1,0 +1,171 @@
+/* Sets up the commenting system for the website */
+.comment, .commentContainer{
+  /* Syling the comments and the comment form container */
+  padding:12px;
+  width:520px;
+  position:relative;
+  background-color:#fcfcfc;
+  border:1px solid white;
+  color:#888;
+  margin-bottom:25px;
+	
+  /* CSS3 rounded corners and drop shadows */	
+  -moz-border-radius:10px;
+  -webkit-border-radius:10px;
+  border-radius:10px;
+
+  -moz-box-shadow:2px 2px 0 #c2c2c2;
+  -webkit-box-shadow:2px 2px 0 #c2c2c2;
+  box-shadow:2px 2px 0 #c2c2c2;
+}
+
+.comment .avatar{
+  /* The avatar is positioned absolutely, and offset outside the comment div */
+  height:50px;
+  left:-70px;
+  position:absolute;
+  width:50px;
+  background:url('img/default_avatar.gif') no-repeat #fcfcfc;
+	
+  /* Centering it vertically: */	
+  margin-top:-25px;
+  top:50%;
+
+  -moz-box-shadow:1px 1px 0 #c2c2c2;
+  -webkit-box-shadow:1px 1px 0 #c2c2c2;
+  box-shadow:1px 1px 0 #c2c2c2;
+}
+
+.comment .avatar img{
+  display:block;
+}
+
+.comment .name{
+  font-size:12px;
+  padding-bottom:8px;
+  color:#ccc;
+}
+
+.comment .date{
+  font-size:10px;
+  /*padding:6px 0;*/
+  position:absolute;
+  right:15px;
+  top:10px;
+  color:#bbb;
+}
+
+.comment .bottom {
+  font-size:12px;
+  position:absolute;
+  right:15px;
+  bottom:10px;
+  color:#00688B;
+  text-align:right;
+}
+
+.comment .bottom span {
+  padding: 0 20px 0 0;
+}
+
+.comment a {
+  color:#00688B;
+  text-decoration:none;
+}
+
+.comment p, .commentContainer p{
+  font-size:12px;
+  line-height:normal;
+  overflow-x:hidden;
+}
+
+.commentContainer input[type=text],
+.commentContainer textarea{
+  /* Styling the inputs */
+  display:block;
+  border:1px solid #ccc;
+  margin:5px 0 5px;
+  padding:3px;
+  font-size:12px;
+  color:#555;
+  font-family:Arial, Helvetica, sans-serif;
+}
+
+.commentContainer textarea{
+  width:500px;
+}
+
+.commentContainer label{
+  font-size:10px;
+}
+
+.commentContainer label span.error{
+  color:red;
+  position:relative;
+  right:-10px;
+}
+
+#comment-submit{
+  /* The submit button */
+  background-color:#58B9EB;
+  border:1px solid #40A2D4;
+  color:#FFFFFF;
+  cursor:pointer;
+  font-family:'Myriad Pro',Arial,Helvetica,sans-serif;
+  font-size:14px;
+  font-weight:bold;
+  padding:4px;
+  margin-top:5px;
+
+  -moz-border-radius:4px;
+  -webkit-border-radius:4px;
+  border-radius:4px;
+}
+
+#comment-submit:hover{
+  background-color:#80cdf5;
+  border-color:#52b1e2;
+}
+
+.align-comment {
+  margin: 0 75px 0 75px;
+}
+
+/* The styles below are only necessary for the styling of the demo page: */
+/*#main{
+  position:relative;
+  margin:0 auto;
+  width:427px;
+}
+
+h1{
+  color:#7E94A2;
+  font-size:30px;
+  margin:50px 0 20px;
+}
+
+h2{
+  font-size:18px;
+  margin-bottom:50px;
+}
+
+h1,h2{
+	font-family:"Myriad Pro",Arial,Helvetica,sans-serif;
+	text-align:center;
+	font-weight:normal;
+	text-shadow:0 1px 1px #FFFFFF;
+}
+
+a, a:visited {
+	color:#0196e3;
+	text-decoration:none;
+	outline:none;
+}
+
+a:hover{
+	text-decoration:underline;
+}
+
+a img{
+	border:none;
+}*/

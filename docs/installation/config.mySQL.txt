@@ -1,0 +1,61 @@
+** Install MySQL 
+  (Fedora Core 14)
+  # yum install mysql mysql-server
+  # yum install mysql-devel
+  # yum install mysql-python
+
+  (Ubuntu)
+  $ sudo apt-get install mysql-server
+  $ sudo apt-get install mysql-client libmysqlclient-dev
+  $ sudo apt-get install mysql-python
+
+
+** Initialize fresh MySQL instance
+1) Start SQL service 
+  # service mysqld start [Fedora]
+  # service mysql start [Ubuntu]
+
+2) Set Root Password for MySQL
+  [Template] $ mysqladmin -u USERNAME password 'PASSWORD'
+  $ mysqladmin -u root password '12345'
+
+
+** Creating the database 
+1) Connect to MySQL server as root
+  # mysql -u root -p
+    Enter password:
+
+2) Create a user called "community" in root (community)
+  [Template] grant all on DATABASENAME.* to USERNAME identified by PASSWORD;
+
+  Theoretically, wildchar % should have included all hosts. But it may not cover localhost. Who knows...
+    mysql> grant all on community.* to 'community'@'%' identified by '12345';
+    mysql> grant all on community.* to 'community'@'localhost' identified by '12345';
+
+3) Add a database entitled "community"
+  [Template] $ mysqladmin -u USERNAME -p create DATABASENAME
+  $ mysqladmin -u community -p create community
+
+4) Import SQL file into the database entitled "community"
+  [Template] mysql -u USERNAME -p DATABASENAME < FILE.SQL
+  $ mysql -u community -p community < init.sql
+
+
+** Notes
+1) To drop the database entitled "init_csdt"
+  [Template] mysqladmin -u USERNAME -p drop DATABASENAME
+  $ mysqladmin -u community -p drop community
+
+2) To login as "community" and select the "community" database
+  $ mysql -u community -p
+  mysql> show databases;
+  mysql> use community;
+  mysql> show tables;
+
+3) Drop tables
+  [Template] DROP TABLE table_name;
+
+4) Inset into HASS Mysql Server
+  $ mysql -h mysql.hss.rpi.edu -p community < init.sql
+
+

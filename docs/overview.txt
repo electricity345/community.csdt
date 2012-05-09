@@ -1,0 +1,33 @@
+** Navigating Directory
+/doc => Contains all of the documentation for the project
+/src => Contains the directory for the csdt community website
+/src/community_csdt => Folder that contains the pyramid mvc framework used to build the csdt community website. This is the folder that you will be copying 
+                       to the servers when deploying new versions of the website
+/src/community_csdt/data => Contains the session information of users when they log in
+/src/community_csdt.egg-info => Contains information to convert the csdt community website into a Python distribution system known as an egg. A Python egg 
+                                is a simple way of distributing Python packages
+/src/community_csdt/community_csdt/config => Contains all website configurations (Only database schema is found as of 5/8/12)
+/src/community_csdt/community_csdt/log => Contains all of the logging information
+/src/community_csdt/community_csdt/src => Contains all of the src code behind the website
+/src/community_csdt/community_csdt/src/models => Contains all of the objects used to query the database
+/src/community_csdt/community_csdt/src/utils => Contains all utility functions that aid the model objects
+/src/community_csdt/community_csdt/src/views => Contains all of the view/controller logic
+/src/community_csdt/community_csdt/static => Contains all of the CSS and Javascript libraries behind the website
+/src/community_csdt/community_csdt/templates => Contains all of the template files used to render HTML pages
+/src/community_csdt/community_csdt/tests => Contains testing suites for the site (No tests have been implemented as of 5/8/12)
+/src/community_csdt/community_csdt/uploads => Contains all of the files necessary for rendering a user's pCSDT project
+
+** Setting up System
+1) Download community_csdt tree from the repository
+2) Follow instructions from "pyramid.installation.txt"
+
+** Uploading changes to server
+1) Follow instructions from "pyramid.production.server.txt"
+
+** Overview of System
+- Mako template as our templating engine
+- MySQL database backend
+- Traversal routing for resolving urls
+
+
+

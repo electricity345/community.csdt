@@ -1,0 +1,111 @@
+Installing Pyramid on Red Hat Enterprise Linux 6 or Fedora 14 
+Running a Pyramid Application under mod_wsgi
+
+Note: Instructions won't work for deploying a Pyramid application on a Windows system using mod_wsgi.
+
+** Initial Setup - For Local Development (Creating virtualenv) **
+1) Install Apache 2.X or greater
+
+2) Install Python 2.7 or greater
+
+3) Install the following listed packages below:
+  (Fedora)
+  # yum install mod_wsgi 
+  # yum install httpd
+  # yum install python-crypto
+  # yum install python-devel
+  # yum install python-virtualenv
+  # yum install mysql mysql-server
+  # yum install mysql-devel
+  # yum install MySQL-python
+  
+  (Ubuntu)
+  $ sudo apt-get install python-crypto
+  $ sudo apt-get install python-dev
+  $ sudo apt-get install libapache2-mod-wsgi
+  $ sudo apt-get install mysql-server
+  $ sudo apt-get install mysql-client libmysqlclient-dev
+  $ sudo apt-get install python-mysqldb
+  $ sudo apt-get install mysql-python
+  $ sudo apt-get install postfix
+
+4) Create a virtualenv which we'll use to install our application
+  [Template] $ virtualenv --no-site-packages APPLICATION_NAME
+
+  [Ex]
+  $ cd [wherever you downloaded the community_csdt tree]
+  $ virtualenv --no-site-packages csdt-env
+
+5) Modules to install to our newly created virtualenv
+  Installing Modules into Python Virtual Environment
+  [Templage] $ <path to virtualenv>/bin/easy_install MODULE
+
+  Install Pyramid into virtualenv
+  [Ex] # bin/easy_install pyramid
+
+6) Install ezPyCrypto library manually (Pycrypto 2.3) - since can't easy_install 2.4 to Ubuntu machines
+   1) Download tar.gz from "http://pypi.python.org/pypi/pycrypto/2.3"
+
+   2) Untar file and move it to "<path to virtualenv>/bin"
+
+   3) Have to change the ezPyCrypto.py file
+    - Remove all mentions of IDEA and RC5 from the file
+    - Reason: Those 2 libraries are copyrighted
+
+   4) bin/python setup.py install
+    - ezPyCrypto folder
+
+
+** Verify community_csdt source tree from repositiory 
+6) Make Mako Templates the default template rendered [SHOULD ALREADY BE DONE] 
+  Under the devleopment.ini file 
+  Place this under the [app:projectName] area:
+  mako.directories=projectName:folderWhereYourTemplatesAre
+
+  [Ex]
+  mako.directories = community_csdt:templates
+  mako.strict_undefined = false 
+
+7) Changes in setup.py file [SHOULD ALREADY BE DONE]
+  By changing the requires portion in setup.py, everytime you re-initialize a new egg, all of the listed libraries will be re-installed
+
+  Replace the old requires with this:
+  requires = [
+    'pyramid',
+    'pyramid_debugtoolbar',
+    'waitress',
+    'pyramid_beaker',
+    'pycrypto==2.3',
+    'mysql-python',
+    'beautifulsoup',
+    'recaptcha-client',
+    'tinyurl',
+    'transaction',
+    'repoze.tm2>=1.0b1', # default_commit_veto
+    'WebError'
+    ]
+
+  pycrypto==2.3 since can't easy_install 2.4 to Ubuntu machines
+
+8) Change the MANIFEST.ini file [SHOULD ALREADY BE DONE]
+  MANIFEST.ini looks for file extensions in your source directory and copies them to create a new egg. If your file extension is not mentioned, 
+  then that file extension will not be found in the egg.   
+
+  In the "recursive-include" section add:
+  *.log *.jar *.jnlp *.1 *.2 *.3 *.4 *.5
+
+
+** Local Testing
+9) Local Testing
+  [Template] 
+  $ cd [wherever you downloaded the community_csdt tree]/src/community_csdt
+  $ <path to virtualenv>/bin/pserve development.ini --reload
+
+  If you are just doing local testing, this is all that you would ever need
+
+
+** For More Information **
+Tutorial-Documents: 
+docs.pylonsproject.org/projects/pyramid/en/latest/index.html
+
+

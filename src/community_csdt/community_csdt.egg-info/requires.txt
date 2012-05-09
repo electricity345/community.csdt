@@ -1,0 +1,12 @@
+pyramid
+pyramid_debugtoolbar
+waitress
+pyramid_beaker
+pycrypto==2.3
+mysql-python
+beautifulsoup
+recaptcha-client
+tinyurl
+transaction
+repoze.tm2>=1.0b1
+WebError

@@ -1,0 +1,93 @@
+** CSDT Accomplished
+1) Uploading an xml file
+2) Login and logout
+3) Registering a public and student user
+4) Display of Projects
+5) Sessions
+6) Database schema
+7) Prelimnary user profile
+8) Contact page
+9) Mission page
+10) After uploading file, it should be reflected on the projects table
+11) Launching of people's projects
+12) Set up Capatcha to prevent malicious attacks from programmatically killing your system
+13) Create a google email address for csdt support
+14) Admin - Name Mr. Eglash and Mr. Moorthy and link to their website
+15) Implementented new registration process - eliminates unvalidated users and usernames from database schema 
+16) Implemented Tinyurl to abbreviate urls that are too long within email messages to users 
+17) Recovery of passwords (both public and student users)
+18) Keep count the number of views, and likes of a person's project
+
+** Done (Sun Jan 29)
+1) Classrooms, classnames, and class_membership tables have been altered in sql table - fix all queries
+2) Altered Projects and Classroom related tables in SQL
+   - Have to change all queries that access project tables - projects, project_stats, project_ratings, project_comments, project_comment_stats
+   - Have to change all queries that access classroom tables
+3) JNLP file templates are up-to-date 
+
+** Done (Mon Jan 30)
+1) Gallery main page - a table with a list of classrooms that contain their projects. This links to various classroom main pages
+2) Classroom main page - a table containing all of the projects that users decides to upload to that particular classroom 
+3) Set logging with timestamp
+
+** Done (Tues Jan 31)
+1) Comments - Like Button
+
+** Done (Tues Feb 8)
+1) Comments - Flag (Sets Flag when clicked)
+
+** Done (Tues Feb 14)
+1) Created Flagged Comments Table for Teachers
+2) Accept Button for Flagged Comments Table is Operational
+3) Created table for users who flagged a particular comment
+4) List of users who flagged a particular comment button is operational in Flagged Comments Table
+
+** Done (Wed Apr 4)
+1) If a project comment is deleted: 
+   - set active = 0 in the project_comments table 
+   - delete all entries of the project id from the project_comments_stats table
+
+** Done (Wed Apr 18)
+1) Fixed login on login page
+2) Distinguish the project type in each project's page
+3) Add table to database detailing the project type so that website can recognize whether or not that project type exists
+
+** Done (Sun Apr 29)
+1) Converted old Pyramid framework to the newest version
+2) Got rid of route urls and converted it to traversal routing
+3) Teachers can upload projects to their classrooms
+   - student_classes and teacher_classes -> session keys (Base.html)
+4) Teacher has option of removing comments for projects that are under the jurisdiction
+5) People can flag comments and this is currently ONLY brought up to the teacher
+6) Can't get rid of upload mako file by making it done all in javascript - requires iFrames which we don't want to use
+7) JNLP Modifications supported
+   - BL xml file needs the project portion in xml filled with <project codename="BL" version="0.41" />
+   - KC xml file needs the project portion in xml filled with <project codename="KC" version="0.41" />
+
+** Done (Wed May 2)
+1) Replace current_url with path_url and full_url
+2) Prevent a user from creating multiple same accounts under a single classroom
+3) Some way to indicate who the owners of the class are and their information - added a tag
+4) Added ability to change classroom's password - edit.class.password.mako
+
+** Done (Fri May 4)
+1) Added project_memberships table into database
+2) Each class has a flagged comment level that a teacher can set
+3) Removed project_stats table from database
+4) Classnames can include any characters
+5) Added Comment Flag Level to create classroom page
+6) Flagged comments look ugly
+
+** Done (Sun May 6)
+1) Allow user to upload or remove a project from multiple classes
+2) Removed upload to class option from upload button
+3) Hide comment - click show to view it
+   - click flag (hidden)
+   - until it is deleted or approved
+4) Implemented full teacher monitoring - teacher gets all comments that are flagged
+5) Visible and non-visible projects - set up option in upload of project (public/private)
+
+** Done (Wed May 9)
+1) Fixed the database "MySQL has gone away" issue
+
+

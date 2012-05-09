@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pCSDT>
+  <JNLPInfo>
+    <project codename="CC" version="1.0" />
+    <JNLP>
+      <resources>
+        <j2se version="1.5+" />
+        <property name="sun.java2d.noddraw" value="true" />
+        <jar href="v0.4/CC.jar" main="true" />
+        <extension name="java3d-latest" href="../media/java3d/webstart/release/java3d-latest.jnlp" />
+        <extension name="jogl" href="../media/jogl/builds/archive/jsr-231-1.x-webstart-current/jogl.jnlp" />
+        <extension name="gluegen-rt" href="../media/gluegen/webstart/gluegen-rt.jnlp" />
+        <extension name="pCSDT-Core" href="../Core/v0.4/Core.jnlp" />
+      </resources>
+      <applet-desc name="pCSDT CC Applet" main-class="CC.CCGui" width="1000" height="600" />
+    </JNLP>
+  </JNLPInfo>
+  <Engine type="CC.CCEngine" selected="Plait">
+    <Properties>
+      <Property name="X scale">0.16666667</Property>
+      <Property name="Y scale">0.16666667</Property>
+      <Property name="Z scale">0.16666667</Property>
+      <Property name="Draw Grid?">true</Property>
+      <Property name="Pixel Allowance (x)">6</Property>
+      <Property name="Pixel Allowance (y)">6</Property>
+      <Property name="Grid Color">217,217,217</Property>
+      <Property name="Grid Number Color">255,0,0</Property>
+      <Property name="Grid Number Precision">0</Property>
+      <Property name="Background image path">bgImg/white.png</Property>
+      <Property name="Background image binary" />
+      <Property name="Texture Start X">-6.0</Property>
+      <Property name="Texture Start Y">-6.0</Property>
+      <Property name="Texture Length">12.0</Property>
+      <Property name="Texture Height">12.0</Property>
+      <Property name="Texture Alpha">0.5</Property>
+      <Property name="Better graphics?">false</Property>
+      <Property name="Name">Engine</Property>
+      <Property name="Description">Default Engine Description</Property>
+      <Property name="Last Caller" />
+      <Property name="Draw Order">1</Property>
+    </Properties>
+    <EventLists>
+      <EventList name="On Being Called" />
+      <EventList name="On Begin" />
+    </EventLists>
+    <Objects>
+      <Object name="Plait" desc="" type="CC.Plait">
+        <EventLists>
+          <EventList name="On Being Called" />
+          <EventList name="On Begin">
+            <Event name="On Begin" x="14" y="82" z="1">
+              <Listener type="list">
+                <Statement type="repeat-n">
+                  <Value type="const">20</Value>
+                  <Do type="list">
+                    <Statement type="method" obj="CC.Plait" name="Plait" method="Duplicate" />
+                    <Statement type="method" obj="CC.Plait" name="Plait" method="Rotate">
+                      <Arg type="const">-7</Arg>
+                    </Statement>
+                    <Statement type="method" obj="CC.Plait" name="Plait" method="Dilate by percent">
+                      <Arg type="const">90</Arg>
+                    </Statement>
+                    <Statement type="method" obj="CC.Plait" name="Plait" method="Set Plait Image">
+                      <Arg type="const">img/plaitColor.png</Arg>
+                    </Statement>
+                    <Statement type="method" obj="CC.Plait" name="Plait" method="Translate by percent">
+                      <Arg type="const">60</Arg>
+                    </Statement>
+                  </Do>
+                </Statement>
+              </Listener>
+            </Event>
+          </EventList>
+        </EventLists>
+        <Properties>
+          <Property name="x">-2.0</Property>
+          <Property name="y">2.0</Property>
+          <Property name="angle">10.0</Property>
+          <Property name="red">0.0</Property>
+          <Property name="green">0.0</Property>
+          <Property name="blue">0.0</Property>
+          <Property name="translation">1.0</Property>
+          <Property name="dilation">0.0</Property>
+          <Property name="rotation">0.0</Property>
+          <Property name="Color">0,0,0</Property>
+          <Property name="Image Source">img/plaitColor.png</Property>
+          <Property name="Vector">false</Property>
+          <Property name="Initial X, Y">-2,2</Property>
+          <Property name="Starting Angle">10.0</Property>
+          <Property name="Starting Size">100.0</Property>
+          <Property name="Name">Plait</Property>
+          <Property name="Description" />
+          <Property name="Last Caller" />
+          <Property name="Draw Order">1</Property>
+        </Properties>
+      </Object>
+    </Objects>
+  </Engine>
+</pCSDT>
+

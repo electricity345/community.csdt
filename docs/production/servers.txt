@@ -1,0 +1,8 @@
+** Test Server (shippb) **
+server only has 0.5 gb memory
+1 process 20 threads
+
+** Servers **
+Might want to explore having our own dedicated testing server (testing server)
+Might want another server to push our testing stuff to next (staging server)
+Finally that server pushes the stuff onto production (production server)

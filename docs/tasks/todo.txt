@@ -1,0 +1,132 @@
+CSDT ToDo List
+
+** High Priority **
+1) Continue integrating JNLP and xml files for various projects into the system (JNLP File Modifications Needed)
+   - Missing (MG, RW, WW)
+   - Support (BD, BL, CC, GG, KC, SB)
+   - WW xml file needs the project portion in xml filled with <project codename="WW" version="0.4" />
+2) User profiles (with his uploads and images)
+   - Change Email
+   - Notifications
+   - Favorite Projects
+   - Friends
+   - Comments
+   - Add more information about themselves (member since, lasted logged in,...)
+   - Default avatar images for user to choose
+3) Delete button
+4) Add a comments option for each project
+   - Keep track of rating for each comment (likes)
+   - Support reply for each individual comment
+   - Limit the number of comments shown on the screen (like 20) - have a read all comments link for people to click if they so choose
+5) Update user log whenever a user logs in and out
+6) Create personalized thumbnail of each project
+
+
+** Medium Priority **
+1) If you click the teacher's username, you should be prompted to all of the classes that he/she manages
+2) Stay on same page - remember the url you were previously at
+  - Whenever someone clicks a link and is brought to a login screen, once they login, they should be brought back to that page, rather than home
+  - After you upload, etc., stay on the same page
+3) Determine whether a link is active or not using <li class="active"> to mark it. Determine what page you are currently on.
+4) Support - place a link
+5) Search functionality on the home page
+   - Support searching of projects, classrooms, and users
+6) Recently uploaded projects table
+7) OP can make changes to their post or delete it
+8) Limit the number of students that can participate in a classroom - 1000 users
+
+
+** Low Priority **
+1) https (ssl) for login
+2) Create thumbnail of each project
+3) Encrypt password using SHA-1 or SHA-2
+4) Add a forum - use something already made
+5) Add a blog - use something already made
+  
+
+** Security ** 
+ - captcha - someway to hide private key
+ - ssl (https)
+ - javascript does the sha1
+ - request for a site certificate
+ - expiring cookies - place a timestamp and nonce to protect against someone tampering it
+
+
+** CSDT - Overview **
+1) Return success or failure to users on Ajax call. Needs to remember the state that they were entered in previously. 
+2) More helpful messages on form validation
+3) Better use of cookies to remember things as well as choosing better names
+4) Active vs non-active users, projects, etc
+5) Names of jqgrid tables - want it to be specific to user, like the user's first and last name, etc.
+6) Get rid of alerts and place dialog boxes in its place
+7) mako template file - thanks user for registering (Public Registration Part 1)
+8) Do more thorough HTTP Error Checking
+    - Only students registered in a class can see that class - check other users even if they are logged in
+
+
+** Questions and Answers **
+- Should an avatar image be added?
+    Yes
+- Should we keep track the number of times that a user has flagged certain messages
+    No not necessary - but good to have
+- Should we have a timestamp of when a user flags a message
+    Yes
+- When a comment is banned, what should we do with it? Should we remove it completely from the database?
+    No
+- Should we keep track of timestamp when we delete a project or user?
+    Yes
+- Do we need to know how many and who the people are who flagged the message
+    Yes - to know who is spamming them
+- Do we need to send a message out to the teacher to inform them that a message was flagged 
+    Don't send them any email - allow them to switch out
+- Delete - save project and user data or just remove it from database?
+    1 Month for everyone
+    Daily program that checks if one month passes for deleted project, remove it from server
+- Should we allow users to change their username?
+  - NO
+- Should we allow teachers to change their class name?
+  - NO
+- Where should we send our comment flags to if there is no teacher? Who is the mediator?
+  - Create a new group level called admin
+  - Fake Admin 
+- Should we allow a user to upload a project to multiple classes or to just one particular class?
+  - Yes
+- Continue integrating JNLP and xml files for various projects into the system (JNLP File Modifications Needed)
+   - Missing (FQ, MG, RW, WW)
+   - Support (BD, BL, CC, GG, KC, SB)
+   - WW xml file needs the project portion in xml filled with <project codename="WW" version="0.4" />
+- Should the flag comment level affect all classrooms that a user owns? Or just a particular one?
+   - Individual
+- If user is part of other classes, should their projects be visible by all classes or just the ones of their choosing?
+   - have a setting which allows the user the choice of priviledges they want for their project
+- When someone deletes a class, should i completely remove it from the database or have a visible column and keep the data still on the server?
+   - downside is classname does not become available again...
+   - rename deleted class (unique)
+   - timestamp of delete
+- Visible and non-visible stuff
+   - Visible (Whether or not the item has been deleted)
+   - Hidden (Hide users from being seen) - Default
+
+
+** Work On **
+1) Where should we send our comment flags to? Who is the mediator?
+   - Create new group called mediators
+   - Add user in the mediator group
+2) For Flagged Comments Table - add timestamp of when each comment is flagged - not the time that the comment was actually created
+3) If a project is deleted:
+   - set active = 0 in the projects table
+   - delete all entries of the project id from the project_stats table 
+   - delete all entries of the project id from the project_ratings table 
+4) Delete button
+5) Comments 
+   - Reply
+   - Limit the number of comments shown on the screen (like 20) - have a read all comments link for people to click if they so choose
+6) Notification and email functionality for users
+7) Have a notification for whenever a teacher logins if there are flagged comments
+8) Allow users to move projects in and out of various classrooms after they have been uploaded
+9) Should galleries page show all classrooms available or only ones that are visible? (Visiblity indicates whether or not the classroom is viewable publically or only seen privately). Default - everything is currently always visible 
+10) Some way for users to remove themselves from a class
+11) Should create an option of whether or not a classroom teacher wants to monitor all comments (public teacher doesn't want to monitor anything)
+    - Every class should have the option to change it
+
+
