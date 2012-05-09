@@ -1,21 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <pCSDT>
   <JNLPInfo>
-    <project codename="SB" version="1.0" />
+    <project codename="SB" version="0.41" />
     <JNLP>
       <resources>
         <j2se version="1.5+" />
         <property name="sun.java2d.noddraw" value="true" />
         <jar href="lib/jbox2d-2.0.1-full.jar" main="false" />
-        <jar href="v0.4/SB.jar" main="true" />
+        <jar href="v0.41/SB.jar" main="true" />
         <extension name="java3d-latest" href="../media/java3d/webstart/release/java3d-latest.jnlp" />
         <extension name="jogl" href="../media/jogl/builds/archive/jsr-231-1.x-webstart-current/jogl.jnlp" />
         <extension name="gluegen-rt" href="../media/gluegen/webstart/gluegen-rt.jnlp" />
+        <extension name="pCSDT-Core" href="../Core/v0.41/Core.jnlp" />
       </resources>
-      <applet-desc name="pCSDT SB Applet" main-class="SB.SBGui" width="1000" height="600">
-        <param name="DemoPropertiesUrl" value="http://www.rpi.edu/~laut/SBtest2/Demos.properties" />
-        <param name="TemplateBackgroundPropertiesUrl" value="http://www.rpi.edu/~laut/SBtest2/DefaultBackgrounds.properties" />
-      </applet-desc>
+      <applet-desc name="pCSDT SB Applet" main-class="SB.SBGui" width="1000" height="600" />
     </JNLP>
   </JNLPInfo>
   <Engine type="SB.Stage" selected="Jessie">
@@ -24,10 +22,11 @@
       <Property name="Y-gravity">-10.0</Property>
       <Property name="iteration">10</Property>
       <Property name="steps">2</Property>
-      <Property name="Speedup Factor">1.6</Property>
-      <Property name="X scale">0.13333334</Property>
-      <Property name="Y scale">0.13333334</Property>
-      <Property name="Z scale">0.13333334</Property>
+      <Property name="scale">26.666666</Property>
+      <Property name="x range">15.0</Property>
+      <Property name="y range">15.0</Property>
+      <Property name="x interval">1.0</Property>
+      <Property name="y interval">1.0</Property>
       <Property name="Draw Grid?">true</Property>
       <Property name="Pixel Allowance (x)">6</Property>
       <Property name="Pixel Allowance (y)">6</Property>
@@ -42,21 +41,25 @@
       <Property name="Texture Height">15.0</Property>
       <Property name="Texture Alpha">0.5</Property>
       <Property name="Better graphics?">false</Property>
-      <Property name="Name">Background</Property>
+      <Property name="Speedup Factor">1.6</Property>
+      <Property name="Name">Stage</Property>
       <Property name="Description" />
-      <Property name="Last Caller" />
+      <Property name="Time elapsed">7.0666614</Property>
       <Property name="Draw Order">0</Property>
     </Properties>
     <EventLists>
-      <EventList name="On Being Called" />
       <EventList name="On Begin" />
+      <EventList name="On Get Msg" />
+      <EventList name="On Get Msg From" />
     </EventLists>
     <Objects>
       <Object name="Arc5" desc="Arc as part of a circle" type="SB.Arc">
         <EventLists>
-          <EventList name="On Being Called" />
+          <EventList name="On Touching" />
+          <EventList name="On New Contact" />
           <EventList name="On Begin" />
-          <EventList name="On Collided" />
+          <EventList name="On Get Msg" />
+          <EventList name="On Get Msg From" />
         </EventLists>
         <Properties>
           <Property name="center">10,9</Property>
@@ -69,15 +72,17 @@
           <Property name="display width">1.5</Property>
           <Property name="Name">Arc5</Property>
           <Property name="Description">Arc as part of a circle</Property>
-          <Property name="Last Caller" />
+          <Property name="Time elapsed">7.0666614</Property>
           <Property name="Draw Order">1</Property>
         </Properties>
       </Object>
       <Object name="LineSegment3" desc="Line segment specified with its two end points" type="SB.LineSegment">
         <EventLists>
-          <EventList name="On Being Called" />
+          <EventList name="On Touching" />
+          <EventList name="On New Contact" />
           <EventList name="On Begin" />
-          <EventList name="On Collided" />
+          <EventList name="On Get Msg" />
+          <EventList name="On Get Msg From" />
         </EventLists>
         <Properties>
           <Property name="x1,y1">0,12</Property>
@@ -87,15 +92,17 @@
           <Property name="display width">1.5</Property>
           <Property name="Name">LineSegment3</Property>
           <Property name="Description">Line segment specified with its two end points</Property>
-          <Property name="Last Caller" />
+          <Property name="Time elapsed">7.0666614</Property>
           <Property name="Draw Order">2</Property>
         </Properties>
       </Object>
       <Object name="LineSegment4" desc="Line segment specified with its two end points" type="SB.LineSegment">
         <EventLists>
-          <EventList name="On Being Called" />
+          <EventList name="On Touching" />
+          <EventList name="On New Contact" />
           <EventList name="On Begin" />
-          <EventList name="On Collided" />
+          <EventList name="On Get Msg" />
+          <EventList name="On Get Msg From" />
         </EventLists>
         <Properties>
           <Property name="x1,y1">4.3,9.8</Property>
@@ -105,21 +112,24 @@
           <Property name="display width">1.5</Property>
           <Property name="Name">LineSegment4</Property>
           <Property name="Description">Line segment specified with its two end points</Property>
-          <Property name="Last Caller" />
+          <Property name="Time elapsed">7.0666614</Property>
           <Property name="Draw Order">3</Property>
         </Properties>
       </Object>
       <Object name="Jessie" desc="Skateboarder" type="SB.SkateBoarder">
         <EventLists>
-          <EventList name="On Being Called" />
+          <EventList name="On key Pressed" />
+          <EventList name="On edge" />
+          <EventList name="On Touching" />
+          <EventList name="On New Contact" />
           <EventList name="On Begin">
-            <Event name="On Begin" x="45" y="127" z="1">
+            <Event name="On Begin" x="23" y="11" z="3">
               <Listener type="list">
                 <Statement type="do-forever">
                   <Do type="list">
                     <name type="if">
                       <Cond type="binary">
-                        <Lhs object="Jessie" prop="y" />
+                        <Lhs object="Jessie" prop="y" readonly="true" />
                         &lt;
                         <Rhs type="const">5.8</Rhs>
                       </Cond>
@@ -127,19 +137,18 @@
                         <Statement type="method" obj="SB.SkateBoarder" name="Jessie" method="Accelerate">
                           <Arg type="const">-1</Arg>
                         </Statement>
-                        <Statement type="method" obj="SB.SkateBoarder" name="Jessie" method="Jump">
-                          <Arg type="const">10.0</Arg>
-                        </Statement>
                       </True>
                     </name>
                   </Do>
                 </Statement>
+                <Statement type="method" obj="SB.SkateBoarder" name="Jessie" method="Broadcast Message">
+                  <Arg type="const">Hello World</Arg>
+                </Statement>
               </Listener>
             </Event>
           </EventList>
-          <EventList name="On 'd' Pressed" />
-          <EventList name="On 'u' Pressed" />
-          <EventList name="On Collided" />
+          <EventList name="On Get Msg" />
+          <EventList name="On Get Msg From" />
         </EventLists>
         <Properties>
           <Property name="init-coordinates">0.5, 13</Property>
@@ -154,13 +163,13 @@
           <Property name="elasticity (0-100)">0</Property>
           <Property name="Autochange face dir?">true</Property>
           <Property name="body type">3</Property>
-          <Property name="init yell?">false</Property>
-          <Property name="yelling?">false</Property>
-          <Property name="init words to yell">Hello</Property>
-          <Property name="words to yell">Hello</Property>
+          <Property name="init say?">false</Property>
+          <Property name="saying?">false</Property>
+          <Property name="init words to say">Hello</Property>
+          <Property name="words to say">Hello</Property>
           <Property name="Name">Jessie</Property>
           <Property name="Description">Skateboarder</Property>
-          <Property name="Last Caller" />
+          <Property name="Time elapsed">7.0666614</Property>
           <Property name="Draw Order">4</Property>
         </Properties>
       </Object>
